@@ -48,3 +48,13 @@ def chunk_text(file_path:str , chunk_size:int = 800 ):
         })
 
     return all_chunks
+
+
+# if __name__ =="__main__":
+
+#     file_path = "./uploads/attention-is-all-you-need-Paper.pdf"
+
+#     chunks = chunk_text(file_path)
+#     print(len(chunks))
+
+#     print(chunks[0])
