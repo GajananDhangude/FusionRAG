@@ -4,14 +4,14 @@ import torch
 from qdrant_client import QdrantClient
 from qdrant_client.models import Distance, VectorParams , PointStruct
 
-model_name = "Qwen/Qwen3-Embedding-0.6B"
+model_name = "BAAI/bge-small-en-v1.5"
 
 client = QdrantClient(url="http://localhost:6333")
 
 if not client.collection_exists(collection_name="test_collection"):
     client.create_collection(
         collection_name="test_collection",
-        vectors_config=VectorParams(size=1024, distance=Distance.COSINE),
+        vectors_config=VectorParams(size=384, distance=Distance.COSINE),
     )
 
 
@@ -44,6 +44,8 @@ def create_qdrant_db(file_path:str):
             points=[PointStruct(id=chunk_id , vector=embeddings , payload={"text":text})]
         )
 
+    client.close()
+    
 
 # if __name__ =="__main__":
 

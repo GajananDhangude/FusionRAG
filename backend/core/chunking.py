@@ -2,7 +2,7 @@ from document_processor import process_document
 import os
 import uuid
 
-def chunk_text(file_path:str , chunk_size:int = 800 ):
+def chunk_text(file_path:str , chunk_size:int = 1000 ):
     """split text/docs into into fix sized chunks"""
 
     content = process_document(file_path)

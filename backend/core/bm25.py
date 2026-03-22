@@ -12,6 +12,8 @@ def bm25_search(file_path:str , query:str):
 
     chunks = chunk_text(file_path)
 
+    print(len(chunks))
+
     for chunk in chunks:
         text = chunk['text']
         original_corpus.append([text])
