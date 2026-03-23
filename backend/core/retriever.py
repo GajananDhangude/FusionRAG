@@ -25,17 +25,22 @@ def semantic_retriever(prompt:str):
         collection_name="test_collection",
         query=embeddings,
         with_payload=True,
-        limit=3
-    )
+        limit=2
+    ).points
 
     return search_result
 
 
-if __name__ == "__main__":
+# if __name__ == "__main__":
 
-        prompt = input("Enter a query:")
+#         prompt = input("Enter a query:")
 
-        result = semantic_retriever(prompt)
+#         result = semantic_retriever(prompt)
 
-        for point in result.points:
-             print(point.payload['text'])
+#         # for point in result.points:
+#         #      print(point.payload['text'])
+#         print(result)
+
+#         for res in result:
+#              doc_text = res['document']
+#              print(doc_text)

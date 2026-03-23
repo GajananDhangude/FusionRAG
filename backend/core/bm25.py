@@ -36,7 +36,7 @@ def bm25_search(file_path:str , query:str):
         range(len(doc_score)),
         key = lambda i:doc_score[i],
         reverse=True
-    )[:3]
+    )[:2]
 
     bm25_results = []
 
