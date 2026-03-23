@@ -41,7 +41,7 @@ def create_qdrant_db(file_path:str):
         client.upsert(
             collection_name = "test_collection",
             wait = True,
-            points=[PointStruct(id=chunk_id , vector=embeddings , payload={"text":text})]
+            points=[PointStruct(id=chunk_id , vector=embeddings , payload={"text":text , "source":source})]
         )
 
     client.close()
