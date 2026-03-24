@@ -1,5 +1,5 @@
-from bm25 import bm25_search
-from retriever import semantic_retriever
+from core.bm25 import bm25_search
+from core.retriever import semantic_retriever
 
 
 def rrf_fusion(file_path:str , query:str):
@@ -38,12 +38,12 @@ def rrf_fusion(file_path:str , query:str):
     return final_result
 
 
-if __name__ == "__main__":
+# if __name__ == "__main__":
 
-    file_path = "./uploads/attention-is-all-you-need-Paper.pdf"
+#     file_path = "./uploads/attention-is-all-you-need-Paper.pdf"
 
-    query = input("Enter Your query:")
+#     query = input("Enter Your query:")
 
-    result = rrf_fusion(file_path , query)
+#     result = rrf_fusion(file_path , query)
 
-    print(result)
+#     print(result)
