@@ -1,6 +1,12 @@
-from document_processor import process_document
+from core.document_processor import process_document
 import os
+import hashlib
 import uuid
+
+
+def get_chunk_hashid(text:str) -> str:
+    hash_hex = hashlib.md5(text.encode('utf-8')).hexdigest()
+    return str(uuid.UUID(hash_hex))
 
 def chunk_text(file_path:str , chunk_size:int = 1000 ):
     """split text/docs into into fix sized chunks"""
@@ -39,7 +45,7 @@ def chunk_text(file_path:str , chunk_size:int = 1000 ):
         chunks.append(' '.join(current_chunks))
 
     for i , chunk in enumerate(chunks):
-        chunk_id = str(uuid.uuid4())
+        chunk_id = get_chunk_hashid(chunk)
 
         all_chunks.append({
             "text":chunk,
@@ -57,4 +63,4 @@ def chunk_text(file_path:str , chunk_size:int = 1000 ):
 #     chunks = chunk_text(file_path)
 #     print(len(chunks))
 
-#     print(chunks[0])
+#     print(chunks)
