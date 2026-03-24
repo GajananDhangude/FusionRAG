@@ -1,6 +1,6 @@
 import os
 from groq import Groq
-from reranker import rrf_fusion
+from core.reranker import rrf_fusion
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -39,11 +39,11 @@ def generate_response(file_path , query:str):
 
     return res
 
-if __name__ =="__main__":
+# if __name__ =="__main__":
 
-    file_path = "./uploads/attention-is-all-you-need-Paper.pdf"
+#     file_path = "./uploads/attention-is-all-you-need-Paper.pdf"
 
-    query = input("Enter your query:")
+#     query = input("Enter your query:")
 
-    res = generate_response(file_path , query)
-    print(res)
+#     res = generate_response(file_path , query)
+#     print(res)
