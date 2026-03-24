@@ -22,7 +22,7 @@ def semantic_retriever(prompt:str):
         embeddings = model(**query_inputs).last_hidden_state.mean(dim=1).squeeze().tolist()
 
     search_result = client.query_points(
-        collection_name="test_collection",
+        collection_name="RAG_Collection",
         query=embeddings,
         with_payload=True,
         limit=2
@@ -37,10 +37,10 @@ def semantic_retriever(prompt:str):
 
 #         result = semantic_retriever(prompt)
 
-#         # for point in result.points:
+#         # for point in result:
 #         #      print(point.payload['text'])
 #         print(result)
 
 #         for res in result:
-#              doc_text = res['document']
+#              doc_text = res.payload['text']
 #              print(doc_text)
