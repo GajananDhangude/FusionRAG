@@ -2,7 +2,7 @@ from typing import List , Dict , Tuple
 import numpy as np
 from rank_bm25 import BM25Okapi
 import string
-from chunking import chunk_text
+from core.chunking import chunk_text
 
 
 def bm25_search(file_path:str , query:str):
