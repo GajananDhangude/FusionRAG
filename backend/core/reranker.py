@@ -9,6 +9,7 @@ def rrf_fusion(file_path:str , query:str):
     bm25_result = bm25_search(file_path , query)
     semantic_result = semantic_retriever(query)
 
+
     for item in bm25_result:
         doc_text = item['document'][0]
 

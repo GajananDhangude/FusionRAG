@@ -29,7 +29,7 @@ def generate_response(file_path , query:str):
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt}
         ],
-        temperature=0,
+        temperature=0.2,
         max_completion_tokens=524
     )
 
@@ -37,7 +37,10 @@ def generate_response(file_path , query:str):
     #     print(chunk.choices[0].delta.content , end="")
     res = res.choices[0].message.content
 
-    return res
+    return {
+        "answer":res,
+        "context":rrf_res
+    }
 
 # if __name__ =="__main__":
 
