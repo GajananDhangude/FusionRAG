@@ -1,0 +1,42 @@
+[
+  {
+    "question": "What is the main architecture proposed in the paper?",
+    "ground_truth": "The paper proposes the Transformer, a new network architecture based solely on attention mechanisms, dispensing with recurrence and convolutions entirely. It follows an encoder-decoder structure using stacked self-attention and point-wise fully connected layers."
+  },
+  {
+    "question": "What BLEU score did the Transformer achieve on WMT 2014 English-to-German translation?",
+    "ground_truth": "The big Transformer model achieved a BLEU score of 28.4 on the WMT 2014 English-to-German translation task, improving over the existing best results by over 2 BLEU. The base model achieved 27.3 BLEU."
+  },
+  {
+    "question": "How many encoder and decoder layers does the base Transformer model have?",
+    "ground_truth": "Both the encoder and decoder are composed of a stack of N=6 identical layers."
+  },
+  {
+    "question": "What is Scaled Dot-Product Attention?",
+    "ground_truth": "Scaled Dot-Product Attention takes queries and keys of dimension dk and values of dimension dv, computes dot products of the query with all keys, divides each by sqrt(dk), and applies softmax to get weights on the values. The formula is: Attention(Q,K,V) = softmax(QK^T / sqrt(dk))V."
+  },
+  {
+    "question": "How does Multi-Head Attention work?",
+    "ground_truth": "Multi-Head Attention linearly projects queries, keys and values h times with different learned projections to dk, dk and dv dimensions. Attention is performed in parallel on each projection, outputs are concatenated and projected again. The paper uses h=8 heads with dk=dv=64."
+  },
+  {
+    "question": "What optimizer was used to train the Transformer and what were its parameters?",
+    "ground_truth": "The Adam optimizer was used with β1=0.9, β2=0.98 and ε=10^-9. The learning rate was varied using a warmup schedule: increasing linearly for the first warmup_steps=4000 steps, then decreasing proportionally to the inverse square root of the step number."
+  },
+  {
+    "question": "Why did the authors use positional encoding?",
+    "ground_truth": "Since the model contains no recurrence and no convolution, positional encodings are added to the input embeddings to give the model information about the relative or absolute position of tokens. Sine and cosine functions of different frequencies are used: PE(pos,2i)=sin(pos/10000^(2i/dmodel)) and PE(pos,2i+1)=cos(pos/10000^(2i/dmodel))."
+  },
+  {
+    "question": "What are the three ways the Transformer uses multi-head attention?",
+    "ground_truth": "The three uses are: (1) encoder-decoder attention where queries come from the decoder and keys/values from the encoder output; (2) self-attention in the encoder where all keys, values and queries come from the previous encoder layer; (3) self-attention in the decoder where each position attends to all positions up to and including that position, with masking to prevent leftward information flow."
+  },
+  {
+    "question": "What regularization techniques were used during training?",
+    "ground_truth": "Three regularization techniques were used: (1) Residual Dropout applied to each sub-layer output before addition and normalization, and to embedding sums, with rate Pdrop=0.1; (2) Label Smoothing with value ls=0.1; and (3) checkpoint averaging for final models."
+  },
+  {
+    "question": "How does self-attention complexity compare to recurrent layers?",
+    "ground_truth": "A self-attention layer connects all positions with O(1) sequential operations and has O(n²·d) complexity per layer. A recurrent layer requires O(n) sequential operations and O(n·d²) complexity. Self-attention is faster when sequence length n is smaller than representation dimensionality d, which is typically the case."
+  }
+]
