@@ -5,6 +5,7 @@ import string
 from core.chunking import chunk_text
 
 
+
 def bm25_search(file_path:str , query:str):
 
     original_corpus = []
@@ -12,7 +13,6 @@ def bm25_search(file_path:str , query:str):
 
     chunks = chunk_text(file_path)
 
-    print(len(chunks))
 
     for chunk in chunks:
         text = chunk['text']
@@ -36,7 +36,7 @@ def bm25_search(file_path:str , query:str):
         range(len(doc_score)),
         key = lambda i:doc_score[i],
         reverse=True
-    )[:2]
+    )[:3]
 
     bm25_results = []
 
