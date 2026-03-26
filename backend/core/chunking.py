@@ -8,7 +8,7 @@ def get_chunk_hashid(text:str) -> str:
     hash_hex = hashlib.md5(text.encode('utf-8')).hexdigest()
     return str(uuid.UUID(hash_hex))
 
-def chunk_text(file_path:str , chunk_size:int = 1000 ):
+def chunk_text(file_path:str , chunk_size:int = 1000):
     """split text/docs into into fix sized chunks"""
 
     content = process_document(file_path)

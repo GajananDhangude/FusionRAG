@@ -1,6 +1,6 @@
 import os
 from groq import Groq
-from core.reranker import rrf_fusion
+from core.hybrid_search import hybrid_search
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -8,13 +8,16 @@ load_dotenv()
 
 client = Groq()
 
-def generate_response(file_path , query:str):
+def generate_response(query:str):
 
-    rrf_res = rrf_fusion(file_path , query)
+    # rrf_res = rrf_fusion(query)
 
-    context = " ".join([res['document'][0] for res in rrf_res])
+    search_result = hybrid_search(query)
 
-    system_prompt = "You are a helpful assistant. Answer the user's question using ONLY the provided context. If the answer isn't present in context, say you don't know."
+    context = " ".join([res['text'] for res in search_result])
+    source = [res['source'] for res in search_result]
+    system_prompt = "You are a helpful assistant. Answer the user's question using ONLY the provided context. If the answer isn't present in context, say I don't know."
+
 
 
     user_prompt = f"""
@@ -29,7 +32,7 @@ def generate_response(file_path , query:str):
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt}
         ],
-        temperature=0.2,
+        temperature=0.1,
         max_completion_tokens=524
     )
 
@@ -38,15 +41,16 @@ def generate_response(file_path , query:str):
     res = res.choices[0].message.content
 
     return {
+        "question":query,
         "answer":res,
-        "context":rrf_res
+        "context":[res['text'] for res in search_result],
+        "source":source[0]
     }
 
 # if __name__ =="__main__":
 
-#     file_path = "./uploads/attention-is-all-you-need-Paper.pdf"
 
 #     query = input("Enter your query:")
 
-#     res = generate_response(file_path , query)
+#     res = generate_response(query)
 #     print(res)

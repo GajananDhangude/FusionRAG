@@ -38,6 +38,8 @@ embeddings = LangchainEmbeddingsWrapper(
 
 run_config = RunConfig(
     max_workers=3,
+    max_wait=60,
+    timeout=60,
 )
 
 
@@ -45,7 +47,7 @@ run_config = RunConfig(
 with open("evals/test_dataset.json", "r") as f:
     data = json.load(f)
 
-def eval_rag(data: list[dict], file_path: str):
+def eval_rag(data: list[dict]):
     rag_result = []
 
     for i, item in enumerate(data):
@@ -55,10 +57,10 @@ def eval_rag(data: list[dict], file_path: str):
         print(f"[{i+1}/{len(data)}] {question[:60]}...")
 
         try:
-            result = generate_response(file_path, question)
-            extracted_chunks = [
-                chunk["document"][0] for chunk in result["context"]
-            ]
+            print("generating response ...")
+            result = generate_response(question)
+            
+            extracted_chunks = result['context']
 
             rag_result.append({
                 "user_input": question,
@@ -93,8 +95,8 @@ def eval_rag(data: list[dict], file_path: str):
 
 
 if __name__ == "__main__":
-    file_path = "./uploads/attention-is-all-you-need-Paper.pdf"
-    df = eval_rag(data, file_path)
+
+    df = eval_rag(data)
 
 
     print("\n--- Average Scores ---")

@@ -1,42 +1,82 @@
 [
   {
-    "question": "What is the main architecture proposed in the paper?",
-    "ground_truth": "The paper proposes the Transformer, a new network architecture based solely on attention mechanisms, dispensing with recurrence and convolutions entirely. It follows an encoder-decoder structure using stacked self-attention and point-wise fully connected layers."
+    "question": "What is the main objective of this study?",
+    "ground_truth": "The study aims to develop a hybrid approach combining SARIMAX and machine learning techniques such as Random Forest, Support Vector Regression, and XGBoost to accurately forecast prices of key agricultural commodities using time-series price data enriched with weather, demand, and market trend indicators."
   },
   {
-    "question": "What BLEU score did the Transformer achieve on WMT 2014 English-to-German translation?",
-    "ground_truth": "The big Transformer model achieved a BLEU score of 28.4 on the WMT 2014 English-to-German translation task, improving over the existing best results by over 2 BLEU. The base model achieved 27.3 BLEU."
+    "question": "What machine learning algorithms are used in this study?",
+    "ground_truth": "The study uses Random Forest, Support Vector Regression (SVR), and XGBoost as machine learning algorithms alongside the SARIMAX statistical model."
   },
   {
-    "question": "How many encoder and decoder layers does the base Transformer model have?",
-    "ground_truth": "Both the encoder and decoder are composed of a stack of N=6 identical layers."
+    "question": "What does SARIMAX stand for?",
+    "ground_truth": "SARIMAX stands for Seasonal Autoregressive Integrated Moving Average with Exogenous variables. It is used to account for seasonality and external factors like rainfall, temperature, and inflation that influence commodity prices."
   },
   {
-    "question": "What is Scaled Dot-Product Attention?",
-    "ground_truth": "Scaled Dot-Product Attention takes queries and keys of dimension dk and values of dimension dv, computes dot products of the query with all keys, divides each by sqrt(dk), and applies softmax to get weights on the values. The formula is: Attention(Q,K,V) = softmax(QK^T / sqrt(dk))V."
+    "question": "What performance metrics are used to evaluate the models?",
+    "ground_truth": "The models are evaluated using RMSE (Root Mean Squared Error), MAE (Mean Absolute Error), and R² score. MAPE (Mean Absolute Percentage Error) is also mentioned as an evaluation metric."
   },
   {
-    "question": "How does Multi-Head Attention work?",
-    "ground_truth": "Multi-Head Attention linearly projects queries, keys and values h times with different learned projections to dk, dk and dv dimensions. Attention is performed in parallel on each projection, outputs are concatenated and projected again. The paper uses h=8 heads with dk=dv=64."
+    "question": "What dataset is used in the implementation?",
+    "ground_truth": "The implementation uses a CSV file named DatasetSIH1647.csv which contains time-series price data of agricultural commodities. The data is structured with commodities as columns and time evolving across rows, with a DatetimeIndex starting from 2014 with yearly end frequencies."
   },
   {
-    "question": "What optimizer was used to train the Transformer and what were its parameters?",
-    "ground_truth": "The Adam optimizer was used with β1=0.9, β2=0.98 and ε=10^-9. The learning rate was varied using a warmup schedule: increasing linearly for the first warmup_steps=4000 steps, then decreasing proportionally to the inverse square root of the step number."
+    "question": "What is the training RMSE reported for the rice price forecasting model?",
+    "ground_truth": "The training RMSE of the rice price forecasting model is reported as 8.6494, indicating the model's performance on the historical training data."
   },
   {
-    "question": "Why did the authors use positional encoding?",
-    "ground_truth": "Since the model contains no recurrence and no convolution, positional encodings are added to the input embeddings to give the model information about the relative or absolute position of tokens. Sine and cosine functions of different frequencies are used: PE(pos,2i)=sin(pos/10000^(2i/dmodel)) and PE(pos,2i+1)=cos(pos/10000^(2i/dmodel))."
+    "question": "What are the forecasted rice prices from 2025 to 2029?",
+    "ground_truth": "The forecasted rice prices show an increasing trend: 44.04 in 2025, 57.9988 in 2026, 57.5921 in 2027, 57.3713 in 2028, and 59.0713 in 2029."
   },
   {
-    "question": "What are the three ways the Transformer uses multi-head attention?",
-    "ground_truth": "The three uses are: (1) encoder-decoder attention where queries come from the decoder and keys/values from the encoder output; (2) self-attention in the encoder where all keys, values and queries come from the previous encoder layer; (3) self-attention in the decoder where each position attends to all positions up to and including that position, with masking to prevent leftward information flow."
+    "question": "What SARIMAX model parameters are used in the implementation?",
+    "ground_truth": "The SARIMAX model uses order=(1, 1, 1) and seasonal_order=(1, 1, 0, 12). The model is fitted using sarimax_model.fit(disp=False) to suppress convergence messages during the fitting process."
   },
   {
-    "question": "What regularization techniques were used during training?",
-    "ground_truth": "Three regularization techniques were used: (1) Residual Dropout applied to each sub-layer output before addition and normalization, and to embedding sums, with rate Pdrop=0.1; (2) Label Smoothing with value ls=0.1; and (3) checkpoint averaging for final models."
+    "question": "What tools and libraries are used in the implementation?",
+    "ground_truth": "The implementation uses pandas for data handling, NumPy for numerical calculations, the SARIMAX model from statsmodels as the forecasting engine, matplotlib.pyplot for visualizations, and Streamlit for building the interactive web interface."
   },
   {
-    "question": "How does self-attention complexity compare to recurrent layers?",
-    "ground_truth": "A self-attention layer connects all positions with O(1) sequential operations and has O(n²·d) complexity per layer. A recurrent layer requires O(n) sequential operations and O(n·d²) complexity. Self-attention is faster when sequence length n is smaller than representation dimensionality d, which is typically the case."
+    "question": "What are the five objectives of the proposed system?",
+    "ground_truth": "The five objectives are: (1) analyze historical agricultural commodity price data for trends and seasonal variations; (2) implement machine learning models for price prediction; (3) develop SARIMAX models for time-series forecasting; (4) compare and evaluate model performance using RMSE, MAE, and MAPE; (5) build a predictive system for real-time short-term and long-term price forecasting."
+  },
+  {
+    "question": "What are the data sources used in the system architecture?",
+    "ground_truth": "The system architecture uses three data sources: Historical Price Data (past prices of agricultural commodities), Weather Data (temperature, rainfall, humidity), and Climate Data (long-term climate trends and seasonal variations)."
+  },
+  {
+    "question": "What are the two stages of data processing in the system architecture?",
+    "ground_truth": "The two stages are: (1) Data Pre-processing which involves cleaning data by handling missing values, outliers, and inconsistencies, and normalizing features; (2) Feature Engineering which creates new relevant features such as combining temperature and rainfall to create a growing condition index or lagging historical price data to capture temporal dependencies."
+  },
+  {
+    "question": "What is the difference between the existing system and the proposed system?",
+    "ground_truth": "The existing system uses SARIMAX and ML models separately and evaluates them individually. The proposed system goes further by combining both models in an ensemble framework, comparing their outputs, and selecting or combining predictions to ensure improved robustness and forecasting accuracy. The proposed system also explicitly targets food security and economic stability."
+  },
+  {
+    "question": "How does the Streamlit application allow users to interact with the forecasting model?",
+    "ground_truth": "The Streamlit application provides a selectbox (st.selectbox) that dynamically lists all commodities in the dataset, allowing users to choose a commodity of interest. A Submit button triggers the forecasting process, after which the app displays a forecast table and a line chart comparing historical and forecasted prices, along with the training RMSE."
+  },
+  {
+    "question": "How many future years does the model forecast and which years are they?",
+    "ground_truth": "The model forecasts 5 future years using sarimax_model.get_forecast(steps=5), covering the years 2025 through 2029 based on the yearly frequency of the dataset."
+  },
+  {
+    "question": "What does the feature engineering stage involve in the proposed system?",
+    "ground_truth": "Feature engineering involves creating new relevant features from existing data, such as combining temperature and rainfall data to create a growing condition index, or lagging historical price data to capture temporal dependencies that influence commodity prices."
+  },
+  {
+    "question": "When should SARIMAX be used versus machine learning models according to the conclusion?",
+    "ground_truth": "According to the conclusion, SARIMAX should be used when the dataset has strong seasonality and autocorrelation. Machine learning models should be used when the focus is on non-linear dependencies and interactions with multiple external variables."
+  },
+  {
+    "question": "What does the hybrid SARIMAX-ML approach achieve compared to individual models?",
+    "ground_truth": "Experimental results demonstrate that the hybrid SARIMAX-ML models outperform individual models, providing more robust and accurate forecasts. ML models excel at capturing non-linear patterns while SARIMAX is highly effective at modelling temporal dependencies and seasonal trends."
+  },
+  {
+    "question": "How does the application handle missing values in the dataset?",
+    "ground_truth": "The application uses .ffill() (forward fill) to carry forward the last valid observation, ensuring a continuous time series for each commodity by filling any gaps in the data."
+  },
+  {
+    "question": "What visualization does the application produce and what does it show?",
+    "ground_truth": "The application produces a line chart using matplotlib.pyplot that overlays historical actual prices of the selected commodity with the newly generated forecasted prices using distinct colors. The chart includes axis labels for Year and Price, a descriptive title, and a legend to make it easily interpretable. It is embedded in the Streamlit app using st.pyplot()."
   }
 ]

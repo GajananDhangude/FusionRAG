@@ -10,15 +10,13 @@ from core.generator import generate_response
 app = FastAPI()
 
 
-active_file_path = None
-
 
 class ChatRequest(BaseModel):
-    file_path:str
+    # file_path:str
     query:str
 
 class ChatResponse(BaseModel):
-    response:str
+    response:dict
 
 
 UPLOAD_DIR = "./uploads"
@@ -34,7 +32,6 @@ def health():
 @app.post("/ingest")
 async def ingest_file(file:UploadFile = File(...)):
 
-    global active_file_path
 
     if not file.filename:
         raise HTTPException(status_code=400 , detail="NO file Found")
@@ -48,8 +45,6 @@ async def ingest_file(file:UploadFile = File(...)):
     if os.path.exists(save_path):
         print("File Exists. Skipping upload and indexed...")
 
-        active_file_path = save_path
-
         return {"message":"File Already exists. No Action Taken"}
     
     try:
@@ -60,7 +55,6 @@ async def ingest_file(file:UploadFile = File(...)):
         print("--------Indexing Document to Vector Database------------")
         client = create_qdrant_db(save_path)
 
-        active_file_path = save_path
 
         return {"message": "Document Uploaded and Indexed Successfully" , "path":save_path}
     
@@ -70,23 +64,15 @@ async def ingest_file(file:UploadFile = File(...)):
         raise HTTPException(status_code=500, detail=f"Indexing failed: {str(e)}")
 
 
-# @app.post("/query")
-# def query_rag()
 
-
-@app.post("/query" , response_model=ChatResponse)
+@app.post("/chat" , response_model=ChatResponse)
 async def query(req:ChatRequest):
-
-    if not active_file_path:
-        raise HTTPException(status_code=400, detail="No file ingested yet. Call /ingest first.")
 
     if not req.query:
         return {"message":"Please Provide Some query"}
     
-    if not req.file_path:
-        return {"message":"Please provide File Context.."}
     
-    res = generate_response(active_file_path, req.query)
+    res = generate_response(req.query)
 
     return ChatResponse(response=res)
 
@@ -99,7 +85,7 @@ if __name__ =="__main__":
         "api.main:app", 
         host="127.0.0.1", 
         port=8000, 
-        reload=False
+        reload=True
     )
 
 
