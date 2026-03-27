@@ -135,9 +135,9 @@ python evaluate.py
 Expected output:
 ```
 faithfulness         0.979167
-answer_relevancy     0.863067
-context_precision    0.741667
-context_recall       0.777500
+answer_relevancy     0.923067
+context_precision    0.821667
+context_recall       0.807500
 ```
 
 ---
