@@ -17,9 +17,9 @@ The entire stack is evaluated using RAGAS with 20 benchmark questions derived fr
 | Metric | Score |
 |---|---|
 | Faithfulness | **0.979** |
-| Answer Relevancy | **0.863** |
-| Context Recall | **0.778** |
-| Context Precision | **0.742** |
+| Answer Relevancy | **0.923** |
+| Context Recall | **0.828** |
+| Context Precision | **0.802** |
 
 > Evaluated on 20 held-out questions from the "Attention Is All You Need" paper.
 
