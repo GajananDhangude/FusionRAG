@@ -3,12 +3,26 @@ from fastapi import FastAPI , UploadFile , File , HTTPException
 from pydantic import BaseModel
 import uvicorn
 import shutil
+from fastapi.responses import JSONResponse
 from core.qdrant_client import create_qdrant_db
 from core.generator import generate_response
+from fastapi.middleware.cors import CORSMiddleware
 
 
 app = FastAPI()
 
+origins = [
+    "http://localhost:5173"
+]
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 class ChatRequest(BaseModel):
@@ -65,16 +79,25 @@ async def ingest_file(file:UploadFile = File(...)):
 
 
 
-@app.post("/chat" , response_model=ChatResponse)
+@app.post("/chat")
 async def query(req:ChatRequest):
 
     if not req.query:
-        return {"message":"Please Provide Some query"}
+        raise HTTPException(status_code=400, detail="Query cannot be empty")
     
     
     res = generate_response(req.query)
 
-    return ChatResponse(response=res)
+    response_content = {
+        "question":res['question'],
+        "answer":res['answer'],
+        "source":res['source']
+    }
+
+    return JSONResponse(
+        content=response_content,
+        status_code=200
+    )
 
 
 

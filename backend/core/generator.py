@@ -16,14 +16,18 @@ def generate_response(query:str):
 
     context = " ".join([res['text'] for res in search_result])
     source = [res['source'] for res in search_result]
-    system_prompt = "You are a helpful assistant. Answer the user's question using ONLY the provided context. If the answer isn't present in context, say I don't know."
+    system_prompt = "You are a Knowledge Base assistant."
 
 
 
     user_prompt = f"""
-    Context: {context}
-    \n Question:{query}
-    \n Answer:
+    QUESTION:
+    {query}
+
+CONTEXT:
+{context}
+
+Using the CONTEXT provided, answer the QUESTION. Keep your answer grounded in the facts of the CONTEXT. If the CONTEXT doesn't contain the answer to the QUESTION, say you don't know.
 """
     
     res = client.chat.completions.create(
@@ -43,7 +47,7 @@ def generate_response(query:str):
     return {
         "question":query,
         "answer":res,
-        "context":[res['text'] for res in search_result],
+        # "context":[res['text'] for res in search_result],
         "source":source[0]
     }
 
