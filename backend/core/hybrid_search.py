@@ -51,7 +51,7 @@ def hybrid_search(query:str , limit:int = 3):
 
 
 # if __name__ == "__main__":
-#     query = "What optimizer and hyperparameters were used to train the Transformer?"
+#     query = "What performance metrics are used to evaluate the models?"
 #     results = hybrid_search(query)
 #     # print(results)
     
