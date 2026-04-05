@@ -102,10 +102,10 @@ def create_qdrant_db(file_path:str):
 
 
 
-# if __name__ =="__main__":
+if __name__ =="__main__":
 
-#     file_path = "./uploads/IJRPR46086.pdf"
-#     create_qdrant_db(file_path)
+    file_path = "./uploads/IJRPR46086.pdf"
+    create_qdrant_db(file_path)
 
 
         
