@@ -4,50 +4,6 @@
     "ground_truth": "The study aims to develop a hybrid approach combining SARIMAX and machine learning techniques such as Random Forest, Support Vector Regression, and XGBoost to accurately forecast prices of key agricultural commodities using time-series price data enriched with weather, demand, and market trend indicators."
   },
   {
-    "question": "What machine learning algorithms are used in this study?",
-    "ground_truth": "The study uses Random Forest, Support Vector Regression (SVR), and XGBoost as machine learning algorithms alongside the SARIMAX statistical model."
-  },
-  {
-    "question": "What does SARIMAX stand for?",
-    "ground_truth": "SARIMAX stands for Seasonal Autoregressive Integrated Moving Average with Exogenous variables. It is used to account for seasonality and external factors like rainfall, temperature, and inflation that influence commodity prices."
-  },
-  {
-    "question": "What performance metrics are used to evaluate the models?",
-    "ground_truth": "The models are evaluated using RMSE (Root Mean Squared Error), MAE (Mean Absolute Error), and R² score. MAPE (Mean Absolute Percentage Error) is also mentioned as an evaluation metric."
-  },
-  {
-    "question": "What dataset is used in the implementation?",
-    "ground_truth": "The implementation uses a CSV file named DatasetSIH1647.csv which contains time-series price data of agricultural commodities. The data is structured with commodities as columns and time evolving across rows, with a DatetimeIndex starting from 2014 with yearly end frequencies."
-  },
-  {
-    "question": "What is the training RMSE reported for the rice price forecasting model?",
-    "ground_truth": "The training RMSE of the rice price forecasting model is reported as 8.6494, indicating the model's performance on the historical training data."
-  },
-  {
-    "question": "What are the forecasted rice prices from 2025 to 2029?",
-    "ground_truth": "The forecasted rice prices show an increasing trend: 44.04 in 2025, 57.9988 in 2026, 57.5921 in 2027, 57.3713 in 2028, and 59.0713 in 2029."
-  },
-  {
-    "question": "What SARIMAX model parameters are used in the implementation?",
-    "ground_truth": "The SARIMAX model uses order=(1, 1, 1) and seasonal_order=(1, 1, 0, 12). The model is fitted using sarimax_model.fit(disp=False) to suppress convergence messages during the fitting process."
-  },
-  {
-    "question": "What tools and libraries are used in the implementation?",
-    "ground_truth": "The implementation uses pandas for data handling, NumPy for numerical calculations, the SARIMAX model from statsmodels as the forecasting engine, matplotlib.pyplot for visualizations, and Streamlit for building the interactive web interface."
-  },
-  {
-    "question": "What are the five objectives of the proposed system?",
-    "ground_truth": "The five objectives are: (1) analyze historical agricultural commodity price data for trends and seasonal variations; (2) implement machine learning models for price prediction; (3) develop SARIMAX models for time-series forecasting; (4) compare and evaluate model performance using RMSE, MAE, and MAPE; (5) build a predictive system for real-time short-term and long-term price forecasting."
-  },
-  {
-    "question": "What are the data sources used in the system architecture?",
-    "ground_truth": "The system architecture uses three data sources: Historical Price Data (past prices of agricultural commodities), Weather Data (temperature, rainfall, humidity), and Climate Data (long-term climate trends and seasonal variations)."
-  },
-  {
-    "question": "What are the two stages of data processing in the system architecture?",
-    "ground_truth": "The two stages are: (1) Data Pre-processing which involves cleaning data by handling missing values, outliers, and inconsistencies, and normalizing features; (2) Feature Engineering which creates new relevant features such as combining temperature and rainfall to create a growing condition index or lagging historical price data to capture temporal dependencies."
-  },
-  {
     "question": "What is the difference between the existing system and the proposed system?",
     "ground_truth": "The existing system uses SARIMAX and ML models separately and evaluates them individually. The proposed system goes further by combining both models in an ensemble framework, comparing their outputs, and selecting or combining predictions to ensure improved robustness and forecasting accuracy. The proposed system also explicitly targets food security and economic stability."
   },
