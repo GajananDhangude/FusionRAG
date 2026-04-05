@@ -47,7 +47,7 @@ Using the CONTEXT provided, answer the QUESTION. Keep your answer grounded in th
     return {
         "question":query,
         "answer":res,
-        # "context":[res['text'] for res in search_result],
+        "context":[res['text'] for res in search_result],
         "source":source[0]
     }
 
