@@ -16,7 +16,7 @@ def generate_response(query:str):
 
     context = " ".join([res['text'] for res in search_result])
     source = [res['source'] for res in search_result]
-    system_prompt = "You are a Knowledge Base assistant."
+    system_prompt = "You are a Knowledge Base assistant. Keep Answer Concise."
 
 
 
