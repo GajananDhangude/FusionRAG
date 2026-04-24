@@ -3,7 +3,10 @@ from fastembed import TextEmbedding , SparseTextEmbedding , LateInteractionTextE
 from qdrant_client import QdrantClient , models
 # from qdrant_client.models import Distance , VectorParams
 from qdrant_client.models import PointStruct
+from dotenv import load_dotenv
+import os
 
+load_dotenv()
 
 model_name = "BAAI/bge-small-en-v1.5"
 Dense_embedding_model = TextEmbedding(model_name=model_name)
@@ -12,7 +15,11 @@ sparse_embedding_model = SparseTextEmbedding("Qdrant/bm25")
 late_embedding_model = LateInteractionTextEmbedding("colbert-ir/colbertv2.0")
 
 
-client = QdrantClient(url="http://localhost:6333")
+client = QdrantClient(
+    url=os.getenv("QDRANT_URL"),
+    api_key = os.getenv("QDRANT_API_KEY")
+    )
+
 collection_name="FusionRAG"
 
 if not client.collection_exists(collection_name=collection_name):
@@ -70,7 +77,7 @@ def create_qdrant_db(file_path:str):
     late_embeddings = list(late_embedding_model.passage_embed(texts))
 
     print("Uploading Documents to Vector Database ..")
-    points = []
+
     for i , chunk in enumerate(chunks):
         chunk_id = chunk['chunk_id']
         point = PointStruct(
@@ -85,13 +92,12 @@ def create_qdrant_db(file_path:str):
                 "source":chunk['source']
             }
         )
-        points.append(point)
 
-    client.upsert(
-        collection_name=collection_name,
-        wait=True,
-        points=points
-    )
+        client.upsert(
+            collection_name=collection_name,
+            wait=True,
+            points=[point]
+        )
     print(f"Uploaing Complete..")
         
     # else:
@@ -102,10 +108,10 @@ def create_qdrant_db(file_path:str):
 
 
 
-if __name__ =="__main__":
+# if __name__ =="__main__":
 
-    file_path = "./uploads/IJRPR46086.pdf"
-    create_qdrant_db(file_path)
+#     file_path = "./uploads/IJRPR46086.pdf"
+#     create_qdrant_db(file_path)
 
 
         
