@@ -16,3 +16,5 @@ langchain-google-genai
 langchain-groq
 datasets
 pandas
+pytest
+httpx
