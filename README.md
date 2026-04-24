@@ -1,92 +1,131 @@
-# 🔍 Hybrid RAG — Document Q&A System
+<div align="center">
+  <h1>🔍 FusionRAG</h1>
+  <p><strong>A Production-Grade Hybrid Retrieval System</strong></p>
 
-A production-grade Retrieval-Augmented Generation system built from scratch — no LangChain. Combines dense, sparse, and late interaction retrieval with a React frontend and Qdrant vector database.
+  [![Python](https://img.shields.io/badge/Python-3.11+-blue.svg)](https://www.python.org)
+  [![FastAPI](https://img.shields.io/badge/FastAPI-0.109+-009688.svg?logo=fastapi)](https://fastapi.tiangolo.com)
+  [![React](https://img.shields.io/badge/React-18+-61DAFB.svg?logo=react)](https://reactjs.org)
+  [![Qdrant](https://img.shields.io/badge/Qdrant-Vector_DB-ff3c82.svg?logo=qdrant)](https://qdrant.tech/)
+  [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+</div>
 
----
+<br>
 
-## Overview
-
-Most RAG systems rely on a single retrieval method. This system uses a **three-stage hybrid pipeline** — BM25 sparse search handles keyword matching, BGE dense embeddings handle semantic similarity, and ColBERT late interaction reranks the final candidates using token-level MaxSim scoring.
-
-The entire stack is evaluated using RAGAS with 20 benchmark questions derived from the "Attention Is All You Need" paper.
-
----
-
-## RAGAS Evaluation Results
-
-| Metric | Score |
-|---|---|
-| Faithfulness | **0.979** |
-| Answer Relevancy | **0.923** |
-| Context Recall | **0.828** |
-| Context Precision | **0.802** |
-
-> Evaluated on 20 held-out questions from the "Attention Is All You Need" paper.
+A robust, LangChain-free Retrieval-Augmented Generation (RAG) architecture showcasing a three-stage hybrid retrieval pipeline. **FusionRAG** combines dense, sparse, and late-interaction (ColBERT) mechanisms to fetch with precision, grounded in factually accurate language generation.
 
 ---
 
-## How It Works
+## ✨ Key Features
 
+- **Three-Stage Pipeline:** Fuses keyword (BM25) and semantic (Dense) search, re-ranked via token-precise ColBERT.
+- **Zero Abstract Overhead:** Direct integrations (no LangChain/LlamaIndex) for enhanced speed, transparency, and hackability.
+- **Lightning Fast Inference:** Powered by Groq's high-speed Llama 3 models for ultra-low latency text generation.
+- **Fully Containerized:** One-click deployment with Docker Compose spins up the API, Qdrant Vector Store, and React Client.
+
+---
+
+## 🏗️ Architecture Flow
+
+```mermaid
+flowchart TD
+    Q[User Query] --> A(Sparse Search) & B(Dense Search)
+    A -->|Top 20 candidates| C{ColBERT Reranking}
+    B -->|Top 20 candidates| C
+    
+    C -->|Token-level MaxSim<br>Top 5 chunks| LLM((Groq/LLaMA-3))
+    LLM --> Ans([Final Answer])
+    
+    subgraph Data Stores
+        A -.-> QdrantBM[Qdrant BM25 fastembed]
+        B -.-> QdrantBGE[BAAI bge-small-en-v1.5]
+    end
 ```
-User Query
-    │
-    ├── BM25 sparse search (Qdrant/bm25 via fastembed)     → top 20 candidates
-    ├── Dense semantic search (BAAI/bge-small-en-v1.5)     → top 20 candidates
-    │
-    └── ColBERT late interaction reranking (colbertv2.0)
-            └── MAX_SIM token-level scoring
-                    └── Top 3–5 chunks → LLM → Answer
-```
 
-**Why three stages?**
-- BM25 catches exact keyword matches that dense retrieval misses
-- Dense retrieval catches semantic similarity that BM25 misses  
-- ColBERT reranks using fine-grained token-level interaction — more precise than either alone
+**Why Three Stages?**
+- **Sparse (BM25)** ensures you never miss exact-match keywords (e.g., specific serial numbers, unique names).
+- **Dense (semantic)** captures intent and context that exact keywords miss.
+- **ColBERT Reranker** acts as the high-precision filter using fine-grained token-level cross-attention—without the latency of standard Cross-Encoders.
 
 ---
 
-## Tech Stack
+## 📊 Evaluation Metrics (RAGAS)
 
-| Layer | Technology |
-|---|---|
-| Backend | FastAPI |
-| Frontend | React |
-| Vector DB | Qdrant |
-| Dense Embeddings | `BAAI/bge-small-en-v1.5` via fastembed |
-| Sparse Embeddings | `Qdrant/bm25` via fastembed |
-| Reranker | `colbertv2.0` — late interaction, MAX_SIM |
-| LLM | Groq / OpenAI |
-| Evaluation | RAGAS |
-| Containerization | Docker Compose |
+Evaluated against 20 held-out questions from the deeply technical *Attention Is All You Need* paper. 
+
+| Metric | Score | Insight |
+| :--- | :---: | :--- |
+| **Faithfulness** | `0.979` | High consistency; hallucinations are highly suppressed. |
+| **Answer Relevancy** | `0.923` | Direct and concise; answers purely what was asked. |
+| **Context Recall** | `0.828` | Successfully retrieves all statements required for the answer. |
+| **Context Precision** | `0.802` | Ground truth context ranks effectively at the top. |
 
 ---
 
-## API Endpoints
+## 🛠️ Technology Stack
+
+- **Backend AI Engine:** FastAPI, Python
+- **Database:** Qdrant (Local Vector DB)
+- **Embeddings:**
+  - Dense: `BAAI/bge-small-en-v1.5`
+  - Sparse: `Qdrant/bm25` (via `fastembed`)
+- **Reranker:** `colbert-v2.0`
+- **LLM Interface:** Groq (`llama-3.3-70b-versatile`)
+- **Frontend / UI:** React JS, Vite, Tailwind CSS (optional)
+
+---
+
+## 🚀 Quickstart
+
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/your-username/FusionRAG.git
+   cd FusionRAG
+   ```
+
+2. **Configure Environment Variables**
+   Create a `.env` file in the `backend/` directory (or export it to your environment), holding your Groq Key:
+   ```bash
+   echo "GROQ_API_KEY=your_groq_api_key_here" > backend/.env
+   ```
+
+3. **Spin Up with Docker Compose**
+   ```bash
+   docker compose up --build
+   ```
+
+**Services Deployed**
+- **Web UI:** [http://localhost:5173](http://localhost:5173)
+- **API Server:** [http://localhost:8000](http://localhost:8000)
+- **Qdrant Dashboard:** [http://localhost:6333/dashboard](http://localhost:6333/dashboard)
+
+---
+
+## ⚡ API Endpoints
 
 ### `POST /ingest`
-Upload and index a document. Supported formats: `.pdf`, `.txt`, `.docx`.
+Uploads and indexes documents into the Qdrant Vector store. Support for `.pdf`, `.txt`, `.docx`.
 
 ```bash
 curl -X POST http://localhost:8000/ingest \
   -F "file=@attention-paper.pdf"
 ```
-
+**Response:**
 ```json
 {
-  "message": "File uploaded and indexed. Ready to chat.",
+  "message": "Document Uploaded and Indexed Successfully",
   "path": "./uploads/attention-paper.pdf"
 }
 ```
 
 ### `POST /chat`
-Query the indexed document.
+Submits a query against the context of the ingested documents.
 
 ```bash
 curl -X POST http://localhost:8000/chat \
   -H "Content-Type: application/json" \
   -d '{"query": "What BLEU score did the Transformer achieve?"}'
 ```
-
+**Response:**
 ```json
 {
   "question": "What BLEU score did the Transformer achieve?",
@@ -95,76 +134,27 @@ curl -X POST http://localhost:8000/chat \
 }
 ```
 
-### `GET /`
-Health check — returns server status and currently active document.
+---
+
+## 🧠 Core Engineering Decisions
+
+<details>
+<summary><strong>Why no LangChain or LlamaIndex?</strong></summary>
+We build all retrieval, chunking, and generative pipelines explicitly. This averts overhead, unpredictable prompts, opaque abstraction layers, and creates a vastly more debuggable and performant production system.
+</details>
+
+<details>
+<summary><strong>Why ColBERT over Cross-Encoder Reranking?</strong></summary>
+ColBERT pre-computes token-level embeddings during document indexing. At query time, it performs a lightweight MaxSim operation rather than forcing the neural network to score massive query-document pairs on the fly, unlocking scalable latency sizes.
+</details>
+
+<details>
+<summary><strong>Why Qdrant BM25 over Standard Modifier.IDF?</strong></summary>
+Standard `Modifier.IDF` processes only internal IDF weighting—meaning it lacks TF mapping, k1 parameters, b constraints, and document length normalization. Using `fastembed`'s complete `Qdrant/bm25` provides a much purer, standard conformant sparse retrieval out of the box.
+</details>
 
 ---
 
-## Quickstart
-
-**Prerequisites:** Docker and Docker Compose installed.
-
-```bash
-# 1. Clone the repo
-git clone https://github.com/your-username/hybrid-rag.git
-cd hybrid-rag
-
-# 2. Add your API key
-echo "GROQ_API_KEY=your_key_here" > .env
-
-# 3. Start the full stack
-docker compose up --build
-```
-
-- Frontend: `http://localhost:5173`
-- Backend: `http://localhost:8000`
-- Qdrant Dashboard: `http://localhost:6333/dashboard`
-
----
-
-## Running Evaluation
-
-```bash
-# Install eval dependencies
-pip install ragas datasets
-
-# Run RAGAS evaluation
-python evaluate.py
-```
-
-Expected output:
-```
-faithfulness         0.979167
-answer_relevancy     0.923067
-context_precision    0.821667
-context_recall       0.807500
-```
-
----
-
-## Key Engineering Decisions
-
-**Why no LangChain?**  
-Built all retrieval, chunking, and generation logic from scratch to have full control over each stage and avoid abstraction overhead that makes debugging harder.
-
-**Why ColBERT over cross-encoder reranking?**  
-ColBERT pre-computes document token embeddings at index time, making reranking significantly faster at query time compared to cross-encoders that require full query-document pairs on every request.
-
-**Why `Qdrant/bm25` over `Modifier.IDF`?**  
-`Modifier.IDF` applies only IDF weighting internally — missing TF, k1, b, and document length normalization. `Qdrant/bm25` via fastembed computes the full BM25 formula before indexing, giving significantly better sparse retrieval quality.
-
----
-
-## Environment Variables
-
-| Variable | Description |
-|---|---|
-| `GROQ_API_KEY` | Your Groq API key for LLM generation |
-| `QDRANT_URL` | Qdrant instance URL (default: `http://localhost:6333`) |
-| `UPLOAD_DIR` | Directory for uploaded files (default: `./uploads`) |
-
----
-
-## License
-
-Apache License
+<p align="center">
+  <i>Developed with ❤️ for powerful open-source RAG architectures.</i>
+</p>
