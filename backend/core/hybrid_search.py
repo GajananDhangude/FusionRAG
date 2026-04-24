@@ -1,8 +1,11 @@
 from qdrant_client import QdrantClient , models
 from fastembed import TextEmbedding , SparseTextEmbedding , LateInteractionTextEmbedding
+import os
 
-
-client = QdrantClient(url="http://localhost:6333")
+client = QdrantClient(
+    url=os.getenv("QDRANT_URL"),
+    api_key=os.getenv("QDRANT_API_KEY")
+)
 collection_name="FusionRAG"
 
 model_name = "BAAI/bge-small-en-v1.5"
