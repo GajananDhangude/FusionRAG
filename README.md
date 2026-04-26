@@ -78,8 +78,11 @@ Evaluated against 20 held-out questions from the deeply technical *Attention Is 
 
 1. **Fork the Repository**
    ```bash
-   in FusionRAG folder fork the current code Structure :>
+   Fork the current code Structure in FusionRAG folder:
    cd FusionRAG
+
+   install neseessary dependancies:
+    pip install -r requirements.txt in backend folder
    ```
 
 2. **Configure Environment Variables**
