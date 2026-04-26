@@ -1,7 +1,9 @@
 <div align="center">
   <h1>🔍 FusionRAG</h1>
   <p><strong>A Production-Grade Hybrid Retrieval System</strong></p>
-  ⭐ If you like this project, give it a star!
+  <p align="center">
+  ⭐ If you find FusionRAG useful, consider giving it a star!
+  </p>
 
   [![Python](https://img.shields.io/badge/Python-3.11+-blue.svg)](https://www.python.org)
   [![FastAPI](https://img.shields.io/badge/FastAPI-0.109+-009688.svg?logo=fastapi)](https://fastapi.tiangolo.com)
