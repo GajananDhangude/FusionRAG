@@ -76,9 +76,9 @@ Evaluated against 20 held-out questions from the deeply technical *Attention Is 
 
 ## 🚀 Quickstart
 
-1. **Clone the Repository**
+1. **Fork the Repository**
    ```bash
-   git clone https://github.com/your-username/FusionRAG.git
+   in FusionRAG folder fork the current code Structure :>
    cd FusionRAG
    ```
 
@@ -86,12 +86,14 @@ Evaluated against 20 held-out questions from the deeply technical *Attention Is 
    Create a `.env` file in the `backend/` directory (or export it to your environment), holding your Groq Key:
    ```bash
    echo "GROQ_API_KEY=your_groq_api_key_here" > backend/.env
+   echo "QDRANT_API_KEY=your_groq_api_key_here" > backend/.env
+   echo "QDRANT_ENDPOINT=your_groq_api_key_here" > backend/.env
    ```
 
-3. **Spin Up with Docker Compose**
-   ```bash
-   docker compose up --build
-   ```
+3. **RUN Backend using UV**: 
+  python -m api.main
+
+4. **RUN Frontend**: npm run dev
 
 **Services Deployed**
 - **Web UI:** [http://localhost:5173](http://localhost:5173)
