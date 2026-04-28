@@ -1,5 +1,5 @@
-from backend.experiments.bm25 import bm25_search
-from backend.experiments.retriever import semantic_retriever
+from labs.bm25 import bm25_search
+from labs.retriever import semantic_retriever
 
 
 
