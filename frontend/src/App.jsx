@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Sidebar from "./components/sidebar/Sidebar";
-import ChatWindow from "./components/chat/Chatwindow";
-import { useChat } from "./hooks/Usechat"; 
+import ChatWindow from "./components/chat/ChatWindow";
+import { useChat } from "./hooks/useChat"; 
 
 export default function App() {
   const [sidebarOpen, setSidebarOpen] = useState(true);

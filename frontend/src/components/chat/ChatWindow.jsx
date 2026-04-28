@@ -1,6 +1,6 @@
 import { useRef, useEffect } from "react";
-import ChatMessage from "./Chatmessage";
-import ChatInput from "./Chatinput";
+import ChatMessage from "./ChatMessage";
+import ChatInput from "./ChatInput";
 
 const SUGGESTIONS = [
   "Summarize the key findings",
