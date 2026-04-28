@@ -8,13 +8,13 @@ def get_chunk_hashid(text:str) -> str:
     hash_hex = hashlib.md5(text.encode('utf-8')).hexdigest()
     return str(uuid.UUID(hash_hex))
 
-def chunk_text(file_path:str , chunk_size:int = 800):
+def chunk_text(text:str , s3_key:str , chunk_size:int = 1000):
     """split text/docs into into fix sized chunks"""
 
-    content = process_document(file_path)
+    # content = process_document(file_path)
 
-    sentences = content.replace("\n" , " ").split('. ')
-    file_name = os.path.basename(file_path)
+    sentences = text.replace("\n" , " ").split('. ')
+    # file_name = os.path.basename(file_path)
 
     all_chunks = []
     chunks = []
@@ -49,18 +49,18 @@ def chunk_text(file_path:str , chunk_size:int = 800):
 
         all_chunks.append({
             "text":chunk,
-            "source":file_name,
+            "source":s3_key,
             "chunk_id":chunk_id
         })
 
     return all_chunks
 
 
-if __name__ =="__main__":
+# if __name__ =="__main__":
 
-    file_path = "./uploads/attention-is-all-you-need-Paper.pdf"
+#     file_path = "./uploads/attention-is-all-you-need-Paper.pdf"
 
-    chunks = chunk_text(file_path)
-    print(len(chunks))
+#     chunks = chunk_text(file_path)
+#     print(len(chunks))
 
-    print(chunks)
+#     print(chunks)
