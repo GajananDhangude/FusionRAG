@@ -1,4 +1,3 @@
-import os
 from groq import Groq
 from core.hybrid_search import hybrid_search
 from dotenv import load_dotenv

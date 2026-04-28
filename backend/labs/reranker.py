@@ -1,5 +1,5 @@
-from core.bm25 import bm25_search
-from core.retriever import semantic_retriever
+from backend.experiments.bm25 import bm25_search
+from backend.experiments.retriever import semantic_retriever
 
 
 
@@ -46,12 +46,12 @@ def rrf_fusion(query:str):
     }
 
 
-if __name__ == "__main__":
+# if __name__ == "__main__":
 
-#     file_path = "./uploads/attention-is-all-you-need-Paper.pdf"
+# #     file_path = "./uploads/attention-is-all-you-need-Paper.pdf"
 
-    query = "What is multi Head attension?"
+#     query = "What is multi Head attension?"
 
-    result = rrf_fusion( query)
+#     result = rrf_fusion( query)
 
-    print(result)
+#     print(result)

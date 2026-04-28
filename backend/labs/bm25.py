@@ -51,13 +51,13 @@ def bm25_search(file_path:str , query:str):
     return bm25_results
 
 
-if __name__ =="__main__":
+# if __name__ =="__main__":
 
-    file_path = "./uploads/attention-is-all-you-need-Paper.pdf"
+#     file_path = "./uploads/attention-is-all-you-need-Paper.pdf"
 
-    query = input("Enter Your query:")
+#     query = input("Enter Your query:")
 
-    result = bm25_search(file_path , query)
+#     result = bm25_search(file_path , query)
 
-    print(result)
+#     print(result)
     

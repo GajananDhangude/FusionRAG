@@ -11,7 +11,6 @@ def get_chunk_hashid(text:str) -> str:
 def chunk_text(text:str , s3_key:str , chunk_size:int = 1000):
     """split text/docs into into fix sized chunks"""
 
-    # content = process_document(file_path)
 
     sentences = text.replace("\n" , " ").split('. ')
     # file_name = os.path.basename(file_path)

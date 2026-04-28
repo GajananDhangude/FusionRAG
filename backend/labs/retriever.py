@@ -31,18 +31,18 @@ def semantic_retriever(prompt:str):
     return search_result
 
 
-if __name__ == "__main__":
+# if __name__ == "__main__":
 
-        prompt = input("Enter a query:")
+#         prompt = input("Enter a query:")
 
-        result = semantic_retriever(prompt)
+#         result = semantic_retriever(prompt)
 
-        # for point in result:
-        #      print(point.payload['text'])
-        print(result)
+#         # for point in result:
+#         #      print(point.payload['text'])
+#         print(result)
 
-        for res in result:
-             doc_text = res.payload['text']
-             source = res.payload['source']
-             print(doc_text)
-             print(source)
+#         for res in result:
+#              doc_text = res.payload['text']
+#              source = res.payload['source']
+#              print(doc_text)
+#              print(source)

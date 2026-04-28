@@ -8,13 +8,12 @@ python-dotenv
 pymupdf
 python-docx
 numpy
-torch
-transformers
 rank-bm25
 ragas
-langchain-google-genai
 langchain-groq
-datasets
+groq
 pandas
 pytest
 httpx
+boto3
+

@@ -1,7 +1,5 @@
-from core.chunking import chunk_text
 from fastembed import TextEmbedding , SparseTextEmbedding , LateInteractionTextEmbedding
 from qdrant_client import QdrantClient , models
-# from qdrant_client.models import Distance , VectorParams
 from qdrant_client.models import PointStruct
 from dotenv import load_dotenv
 import os
