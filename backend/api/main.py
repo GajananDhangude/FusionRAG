@@ -28,7 +28,8 @@ s3 = boto3.client(
 BUCKET_NAME = os.getenv("BUCKET_NAME")
 
 origins = [
-    "http://localhost:5173"
+    "http://localhost:5173",
+    "http://127.0.0.1:5173"
 ]
 
 
