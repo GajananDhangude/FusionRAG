@@ -22,37 +22,36 @@ client = QdrantClient(
 
 collection_name="FusionRAG"
 
-if not client.collection_exists(collection_name=collection_name):
-    client.create_collection(
-        collection_name=collection_name,
-        vectors_config={
-            "dense-bge":models.VectorParams(
-                size=384,
-                distance=models.Distance.COSINE,
-            ),
-            "colbertv2.0": models.VectorParams(
-                size=128,
-                distance=models.Distance.COSINE,
-                multivector_config=models.MultiVectorConfig(
-                comparator=models.MultiVectorComparator.MAX_SIM,
+def initialize_qdrant_collection():
+    if not client.collection_exists(collection_name=collection_name):
+        client.create_collection(
+            collection_name=collection_name,
+            vectors_config={
+                "dense-bge":models.VectorParams(
+                    size=384,
+                    distance=models.Distance.COSINE,
                 ),
-            )
-        },
-        sparse_vectors_config={
-            "sparse-bm25":models.SparseVectorParams()
-        }
-    )
+                "colbertv2.0": models.VectorParams(
+                    size=128,
+                    distance=models.Distance.COSINE,
+                    multivector_config=models.MultiVectorConfig(
+                    comparator=models.MultiVectorComparator.MAX_SIM,
+                    ),
+                )
+            },
+            sparse_vectors_config={
+                "sparse-bm25":models.SparseVectorParams()
+            }
+        )
 
-    print(f"Collection '{collection_name}' created successfully.")
-else:
-    print(f"Collection '{collection_name}' already exists.")
+        print(f"Collection '{collection_name}' created successfully.")
+    else:
+        print(f"Collection '{collection_name}' already exists.")
 
 
-def create_qdrant_db(file_path:str):
+def create_qdrant_db(chunks:list):
     """To create a vector database, we need to obtain embeddings for each chunk’s text and map these embeddings to their corresponding chunk IDs and document IDs"""
-    
-    print("Chunking Document...")
-    chunks = chunk_text(file_path)
+    initialize_qdrant_collection()
 
     texts = [chunk['text'] for chunk in chunks]
     chunk_ids = [chunk['chunk_id'] for chunk in chunks]
