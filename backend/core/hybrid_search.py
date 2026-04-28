@@ -27,12 +27,12 @@ def hybrid_search(query:str , limit:int = 3):
             models.Prefetch(
                 query=dense_query,
                 using="dense-bge",
-                limit=20,
+                limit=10,
             ),
             models.Prefetch(
                 query=models.SparseVector(**sparse_query.as_object()),
                 using="sparse-bm25",
-                limit=20,
+                limit=10,
             ),
         ],
         query=late_vectors,                          # ColBERT reranks the prefetch candidates
