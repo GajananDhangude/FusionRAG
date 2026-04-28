@@ -85,18 +85,18 @@ Evaluated against 20 held-out questions from the deeply technical *Attention Is 
 2. **Configure Environment Variables**
    Create a `.env` file in the `backend/` directory with your Groq API key:
    ```env
-GROQ_API_KEY=your_groq_api_key_here
-QDRANT_URL=http://qdrant:6333
-QDRANT_API_KEY=your_qdrant_api_key_here
-AWS_ACCESS_KEY_ID=your_aws_access_key_here
-AWS_SECRET_ACCESS_KEY=your_aws_secret_api_key
-BUCKET_NAME=your_s3_Bucket_name
+   GROQ_API_KEY=your_groq_api_key_here
+   QDRANT_URL=http://qdrant:6333
+   QDRANT_API_KEY=your_qdrant_api_key_here
+   AWS_ACCESS_KEY_ID=your_aws_access_key_here
+   AWS_SECRET_ACCESS_KEY=your_aws_secret_api_key
+   BUCKET_NAME=your_s3_Bucket_name
    ```
 
 3. **Spin Up with Docker Compose**
-  ```bash
-docker compose up --build
-  ```
+   ```bash
+   docker compose up --build
+   ```
 
 **Services Deployed**
 - **Web UI:** [http://localhost:5173](http://localhost:5173)
