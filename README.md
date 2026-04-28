@@ -1,9 +1,6 @@
 <div align="center">
   <h1>🔍 FusionRAG</h1>
   <p><strong>A Production-Grade Hybrid Retrieval System</strong></p>
-  <p align="center">
-  ⭐ If you find FusionRAG useful, consider giving it a star!
-  </p>
 
   [![Python](https://img.shields.io/badge/Python-3.11+-blue.svg)](https://www.python.org)
   [![FastAPI](https://img.shields.io/badge/FastAPI-0.109+-009688.svg?logo=fastapi)](https://fastapi.tiangolo.com)
@@ -79,27 +76,22 @@ Evaluated against 20 held-out questions from the deeply technical *Attention Is 
 
 ## 🚀 Quickstart
 
-1. **Fork the Repository**
+1. **Clone the Repository**
    ```bash
-   Fork the current code Structure in FusionRAG folder:
+   git clone https://github.com/your-username/FusionRAG.git
    cd FusionRAG
-
-   install neseessary dependancies:
-    pip install -r requirements.txt in backend folder
    ```
 
 2. **Configure Environment Variables**
    Create a `.env` file in the `backend/` directory (or export it to your environment), holding your Groq Key:
    ```bash
    echo "GROQ_API_KEY=your_groq_api_key_here" > backend/.env
-   echo "QDRANT_API_KEY=your_groq_api_key_here" > backend/.env
-   echo "QDRANT_ENDPOINT=your_groq_api_key_here" > backend/.env
    ```
 
-3. **RUN Backend using UV**: 
-  python -m api.main
-
-4. **RUN Frontend**: npm run dev
+3. **Spin Up with Docker Compose**
+   ```bash
+   docker compose up --build
+   ```
 
 **Services Deployed**
 - **Web UI:** [http://localhost:5173](http://localhost:5173)
