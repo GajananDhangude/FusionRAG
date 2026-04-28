@@ -1,49 +1,43 @@
-import pymupdf
 import docx
+import fitz
+import io
 
 
-def process_document(file_path:str):
+def process_document(file_bytes:bytes , file_format:str):
     """Process unstructured documents"""
 
-    if file_path.endswith(".pdf"):
-        return read_pdf_file(file_path)
-    elif file_path.endswith(".txt"):
-        return read_text_file(file_path)
-    elif file_path.endswith(".docx"):
-        return read_docx_file(file_path)
-    
+    if file_format == "pdf":
+        return read_pdf_file(file_bytes)
+    elif file_format == "txt":
+        return read_text_file(file_bytes)
+    elif file_format == "docx":
+        return read_docx_file(file_bytes)
+
     else:
-        raise ValueError(f"Unsupported file format:{file_path.endswith}")
+        raise ValueError(f"Unsupported file format:{file_format}")
     
 
-def read_pdf_file(file_path:str):
+def read_pdf_file(file_bytes:bytes):
     """Read PDF file"""
 
-    doc = pymupdf.open(file_path)
+    with fitz.open(stream=file_bytes, filetype="pdf") as doc:
+        text = ""
+        for page in doc:
+            text += page.get_text()
+    return text
 
-    docs = ""
-    for page in doc:
-        text = page.get_text()
-        docs += text + "\n"
-    doc.close()
+def read_text_file(file_bytes:bytes):
+    """Read text file from file bytes"""
 
-    return docs
+    content = file_bytes.decode("utf-8")
+    return content
 
-def read_text_file(file_path:str):
-    """Read text file from file path"""
+def read_docx_file(file_bytes:bytes):
+    """Read docx file from file bytes"""
 
-    with open(file_path , "r" , encoding="utf-8") as f:
-        content = f.read()
+    doc = docx.Document(io.BytesIO(file_bytes))
 
-    return "\n".join([content])
+    paragraphs = [para.text for para in doc.paragraphs if para.text.strip()]
 
-def read_docx_file(file_path:str):
-    """Read docx file path"""
-
-    doc = docx.Document(file_path)
-
-    for paragraph in doc.paragraphs:
-        text = paragraph.text
-
-    return "\n".join([text])
+    return "\n".join(paragraphs)
                           
