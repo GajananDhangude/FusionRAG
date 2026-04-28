@@ -86,6 +86,11 @@ Evaluated against 20 held-out questions from the deeply technical *Attention Is 
    Create a `.env` file in the `backend/` directory (or export it to your environment), holding your Groq Key:
    ```bash
    echo "GROQ_API_KEY=your_groq_api_key_here" > backend/.env
+   echo "QDRANT_URL=your_qdrant_api_key_here" > backend/.env
+   echo "QDRANT_API_KEY=your_qdrant_api_key_here" > backend/.env
+   echo "AWS_ACCESS_KEY_ID=your_aws_access_key_here" > backend/.env
+   echo "AWS_SECRET_ACCESS_KEY=your_aws_secret_api_key" > backend/.env
+    echo "BUCKET_NAME=your_s3_Bucket_name" > backend/.env
    ```
 
 3. **Spin Up with Docker Compose**
