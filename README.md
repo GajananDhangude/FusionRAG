@@ -94,8 +94,8 @@ Evaluated against 20 held-out questions from the deeply technical *Attention Is 
    ```
 
 3. **Spin Up with Docker Compose**
-   ```bash
-   docker compose up --build
+  ```bash
+docker compose up --build
   ```
 
 **Services Deployed**
