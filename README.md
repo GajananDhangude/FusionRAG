@@ -21,6 +21,7 @@ A robust, LangChain-free Retrieval-Augmented Generation (RAG) architecture showc
 
 If you find FusionRAG useful, a GitHub Star ⭐️ would be greatly appreciated — it helps other builders (and their agents) find the project, and stars notify you about new releases.
 
+
 ## ✨ Key Features
 
 - **Three-Stage Pipeline:** Fuses keyword (BM25) and semantic (Dense) search, re-ranked via token-precise ColBERT.
