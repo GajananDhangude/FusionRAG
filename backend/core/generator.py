@@ -17,8 +17,6 @@ def generate_response(query:str):
     source = [res['source'] for res in search_result]
     system_prompt = "You are a Knowledge Base assistant. Keep Answer Concise."
 
-
-
     user_prompt = f"""
     QUESTION:
     {query}
